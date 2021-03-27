@@ -3,15 +3,33 @@
   <div>
   <div>今日のオカズルーレット</div>
   <div>今日のオカズに迷った時に、ルーレットで決めよう！</div>
-  <p>今日のオカズは何にしようか？</p>
-  <p>{{ message[random_number] }}</p>
+  <div v-if="random_number == null">今日のオカズは何にしようか？</div>
+  <div v-else>{{ message[random_number] }}</div>
+  <v-img
+    width="100"
+    height="100"
+    :src="img[random_number]"
+  ></v-img>
+
   <v-btn
+    v-if="isActive == true"
     class="pa-5 ml-3"
     depressed
     color="blue lighten-4"
-    @click="reload()">
+    @click="active();">
     スタート
   </v-btn>
+
+  <v-btn
+    v-else
+    class="pa-5 ml-3"
+    depressed
+    color="red lighten-4"
+    @click="reload(); active();">
+    ストップ
+  </v-btn>
+
+
   
   </div>
   </v-app>
@@ -28,12 +46,28 @@ export default {
   },
 
   data: () => ({
-    message: ['桜空もも','安齋らら','三上悠亜'],
-    random_number: null
+    message: [
+      '桜空もも',
+      '安齋らら',
+      '三上悠亜'
+      ],
+    img: [
+      require('./assets/img/sakura_momo4.jpg'),
+      require('./assets/img/anzai_rara2.jpg'),
+      require('./assets/img/mikami_yua.jpg')
+      ],
+    random_number: null,
+    isActive: true
   }),
   methods: {
     reload(){
       this.random_number = Math.floor(Math.random() * this.message.length);
+    },
+    active(){
+      this.isActive = !this.isActive;
+    },
+    shuffle(){
+      
     }
   }
 };
