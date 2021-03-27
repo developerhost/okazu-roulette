@@ -16,7 +16,7 @@
     class="pa-5 ml-3"
     depressed
     color="blue lighten-4"
-    @click="active();">
+    @click="shuffle(); active();">
     スタート
   </v-btn>
 
@@ -67,8 +67,12 @@ export default {
       this.isActive = !this.isActive;
     },
     shuffle(){
-      
+      // var change = this.random_number = Math.floor(Math.random() * this.message.length);
+      setInterval(this.reload().bind(this), 1000)
     }
+
+  },
+  mounted: {
   }
 };
 </script>
