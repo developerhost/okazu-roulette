@@ -25,7 +25,7 @@
     class="pa-5 ml-3"
     depressed
     color="red lighten-4"
-    @click="stop(); active();">
+    @click="beforeDestroy(); active();">
     ストップ
   </v-btn>
 
@@ -74,15 +74,13 @@ export default {
         this.random_number = Math.floor(Math.random() * this.message.length);
       }.bind(this), 100);
       repeat;
+    },
+    beforeDestroy() {
+    clearInterval(this.repeat);
+    this.random_number = Math.floor(Math.random() * this.message.length);
+    console.log("reload");
     }
 
   },
-  mounted: {
-  },
-  destroyed: {
-    stop() {
-      clearInterval(this.repeat);
-    }
-  }
 };
 </script>
