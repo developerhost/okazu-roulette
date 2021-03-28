@@ -63,10 +63,32 @@
         class="pa-5 ml-3"
         depressed
         color="red lighten-4"
-        @click="beforeDestroy(); active();">
+        @click="reload(); active();">
         ストップ
       </v-btn>
+
+      
     </v-layout>
+    </v-col>
+
+    <v-col
+        class="mb-5"
+        cols="12"
+    >
+    <v-layout justify-center>
+
+    <v-btn
+    v-if="isActive == true && this.random_number"
+    large 
+    class="mb-2 
+    font-weight-bold" 
+    color="primary" 
+    @click="tweet()"
+    >
+    ツイートする
+    </v-btn>
+    </v-layout>
+      
     </v-col>
     </v-row>
   </v-container>
@@ -82,15 +104,50 @@ export default {
     message: [
       '桜空もも',
       '安齋らら',
-      '三上悠亜'
+      '三上悠亜',
+      '朝田ひまり',
+      '高橋しょう子',
+      '木下ひまり',
+      '相沢みなみ',
+      '姫咲はな',
+      '篠田ゆう',
+      '松本いちか',
+      '松下紗栄子',
+      '二階堂夢',
+      '山岸逢花',
+      'はやのうた',
+      '橋本ありな',
+      '藤森里穂',
+      'JULIA',
+      '桃乃木かな',
+      '石原希望',
+      '神宮寺ナオ',
       ],
     img: [
       require('../assets/img/sakura_momo4.jpg'),
       require('../assets/img/anzai_rara2.jpg'),
-      require('../assets/img/mikami_yua.jpg')
+      require('../assets/img/mikami_yua.jpg'),
+      require('../assets/img/asada_himari.jpg'),
+      require('../assets/img/takahasi_syouko.jpg'),
+      require('../assets/img/kinosita_himari.jpg'),
+      require('../assets/img/aizawa_minami.jpg'),
+      require('../assets/img/himesaki_hana.jpg'),
+      require('../assets/img/sinoda_yuu.jpg'),
+      require('../assets/img/matumoto_itika.jpg'),
+      require('../assets/img/matusita_saeko.jpg'),
+      require('../assets/img/nikaido_yume.jpg'),
+      require('../assets/img/yamagishi_aika.jpg'),
+      require('../assets/img/hayano_uta.jpg'),
+      require('../assets/img/hasimoto_arina.jpg'),
+      require('../assets/img/huzimori_riho.jpg'),
+      require('../assets/img/julia.jpg'),
+      require('../assets/img/isihara_nozomi2.jpg'),
+      require('../assets/img/zinguuzi_nao.jpg'),
+      
       ],
     random_number: null,
-    isActive: true
+    isActive: true,
+    stop: false
   }),
   methods: {
     reload(){
@@ -102,18 +159,38 @@ export default {
     active(){
       this.isActive = !this.isActive;
     },
-    shuffle(){
-      var repeat = setInterval(function loop() {
-        this.random_number = Math.floor(Math.random() * this.message.length);
-      }.bind(this), 100);
-      repeat;
-    },
-    beforeDestroy() {
-    clearInterval(this.repeat);
-    this.random_number = Math.floor(Math.random() * this.message.length);
-    console.log("reload");
-    }
+    // shuffle(){
+    //   if(this.isActive == false){
+    //     var repeat = setInterval(function loop() {
+    //       this.random_number = Math.floor(Math.random() * this.message.length);
+    //     }.bind(this), 100);
+    //     repeat;
 
+    //   }else{
+    //     clearInterval(repeat);
+    //     this.random_number = Math.floor(Math.random() * this.message.length);
+    //   }
+    // },
+
+    shuffle(){
+    var repeat = setInterval(function loop() {
+        if(this.isActive == false){
+          this.random_number = Math.floor(Math.random() * this.message.length);
+        }else{
+          clearInterval(repeat);
+        }
+        }.bind(this), 100);
+        repeat;
+    },
+    tweet() {
+      var shareURL =
+        "https://twitter.com/intent/tweet?text=" +
+        "今日のオカズは" + this.message[this.random_number] + "でした" +
+        "%20%23今日のオカズルーレット" +
+        "&url=" +
+        "https://okazu-roulette.web.app";
+      location.href = shareURL;
+    },
   },
 };
 </script>

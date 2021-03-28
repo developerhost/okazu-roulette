@@ -6,7 +6,7 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
-        <v-btn text href="" target="_blank">
+        <v-btn text href="" target="_blank" @click="childTweet">
           <span class="mr-2 font-weight-black">シェア</span>
           <v-icon>mdi-open-in-new</v-icon>
         </v-btn>
@@ -14,7 +14,7 @@
     </v-app-bar>
 
     <v-main>
-      <Main />
+      <Main ref="childTweet"/>
     </v-main>
 
   </v-app>
@@ -32,5 +32,12 @@ export default {
 
   data: () => ({
   }),
+  methods: {
+    childTweet() {
+      console.log("tweet");
+      this.$refs.childTweet.tweet()
+      
+    }
+  }
 };
 </script>
