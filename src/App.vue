@@ -25,7 +25,7 @@
     class="pa-5 ml-3"
     depressed
     color="red lighten-4"
-    @click="reload(); active();">
+    @click="stop(); active();">
     ストップ
   </v-btn>
 
@@ -61,23 +61,28 @@ export default {
   }),
   methods: {
     reload(){
-      const self = this;
-      clearInterval(self.shuffle());
-      // this.random_number = Math.floor(Math.random() * this.message.length);
+      const self = this
+      clearInterval(self.repeat);
+      console.log("reload");
+      
     },
     active(){
       this.isActive = !this.isActive;
     },
     shuffle(){
-      //  var change = this.random_number = Math.floor(Math.random() * this.message.length);
-      // setInterval("reload()", 1000);
-      setInterval(function loop() {
+      var repeat = setInterval(function loop() {
         this.random_number = Math.floor(Math.random() * this.message.length);
       }.bind(this), 100);
+      repeat;
     }
 
   },
   mounted: {
+  },
+  destroyed: {
+    stop() {
+      clearInterval(this.repeat);
+    }
   }
 };
 </script>
