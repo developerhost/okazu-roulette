@@ -61,14 +61,19 @@ export default {
   }),
   methods: {
     reload(){
-      this.random_number = Math.floor(Math.random() * this.message.length);
+      const self = this;
+      clearInterval(self.shuffle());
+      // this.random_number = Math.floor(Math.random() * this.message.length);
     },
     active(){
       this.isActive = !this.isActive;
     },
     shuffle(){
       //  var change = this.random_number = Math.floor(Math.random() * this.message.length);
-      setInterval("reload()", 1000);
+      // setInterval("reload()", 1000);
+      setInterval(function loop() {
+        this.random_number = Math.floor(Math.random() * this.message.length);
+      }.bind(this), 100);
     }
 
   },
