@@ -67,8 +67,8 @@ export default {
       this.isActive = !this.isActive;
     },
     shuffle(){
-      // var change = this.random_number = Math.floor(Math.random() * this.message.length);
-      setInterval(this.reload().bind(this), 1000)
+      //  var change = this.random_number = Math.floor(Math.random() * this.message.length);
+      setInterval("reload()", 1000);
     }
 
   },
